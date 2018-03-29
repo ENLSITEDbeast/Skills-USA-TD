@@ -4,7 +4,9 @@ public class Enemy : MonoBehaviour {
 
 	public float speed = 10f;
 
+    [SerializeField]
 	private Transform target;
+    [SerializeField]
 	private int waypointIndex = 0;
 
 	void Start ()
@@ -17,7 +19,7 @@ public class Enemy : MonoBehaviour {
 		Vector3 dir = target.position - transform.position;
 		transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
 	
-		if (Vector3.Distance (transform.position, target.position) <= 0.2f) 
+		if (Vector3.Distance (transform.position, target.position) <= 0.4f) 
 		{
 			GetNextWayPoint();
 		
@@ -26,11 +28,13 @@ public class Enemy : MonoBehaviour {
 
 	void GetNextWayPoint ()
 	{
+        
 		if (waypointIndex >= Waypoints.WayPoints.Length - 1) {
 			Destroy (gameObject);
+            return;
 		}
-        waypointIndex++;
+       waypointIndex++;
 
-		target = Waypoints.WayPoints [waypointIndex];
+        target = Waypoints.WayPoints[waypointIndex];
 	}
 }
